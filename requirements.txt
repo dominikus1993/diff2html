@@ -1,4 +1,5 @@
 ansi2html==1.6.0
+click==8.0.1
 gitdb==4.0.7
 GitPython==3.1.18
 smmap==4.0.0
