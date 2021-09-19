@@ -29,15 +29,15 @@ def diff2html(path: str, commit: str, commit2diff: str, html_path: str):
     
 @cli.command("log")
 @click.option('-p', '--path', type=str, default="./", help='string')
-@click.option('-c', '--commit', type=str, default="HEAD")
+@click.option('-c', '--commit', type=str, default=None)
 @click.option('-a', '--after', type=str, help='example "2021-09-31"')
 @click.option('-b', '--before', type=str, help='example "2021-09-31"')
 @click.option('-hp', '--html_path', type=str, default="diff.html")
 @click.option('-a', "--author", type=str, default=None)
-def log2html(path: str, commit: str, after: str, before: str, html_path: str, author: Union[str, None]):
+def log2html(path: str, commit: Union[str, None], after: str, before: str, html_path: str, author: Union[str, None]):
     click.echo("diff from log creation start")
     g = git.Repo(path)
-    def get_changes(repo: Repo, cmt: str, before: str, after: str, author: Union[str, None]) -> Sequence[str]:
+    def get_changes(repo: Repo, cmt: Union[str, None], before: str, after: str, author: Union[str, None]) -> Sequence[str]:
         commits = repo.iter_commits(cmt, before=before, after=after, author=author)
         for commit in commits:
             show = repo.git.show(commit)
