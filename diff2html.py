@@ -1,4 +1,5 @@
 import subprocess
+from typing import Union
 from ansi2html import Ansi2HTMLConverter
 import click
 
@@ -13,9 +14,13 @@ def cli():
 @click.option('-c', '--commit', type=str, default="HEAD")
 @click.option('-c2', '--commit2diff', type=str, default="HEAD^")
 @click.option('-hp', '--html_path', type=str, default="diff.html")
-def diff2html(path: str, commit: str, commit2diff: str, html_path: str):
+@click.option('-a', "--author", type=Union[str, None], default=None)
+def diff2html(path: str, commit: str, commit2diff: str, html_path: str, author: Union[str, None]):
     click.echo("Diff creation start")
-    git = subprocess.run(["git", 'diff', commit2diff, commit, "--color"], capture_output=True, shell=False, cwd=path)
+    op = ["git", 'diff', commit2diff, commit, "--color"]
+    if author:
+        op.append("--author=" + author)
+    git = subprocess.run(op, capture_output=True, shell=False, cwd=path)
     diff = git.stdout.decode('utf-8')
     converter = Ansi2HTMLConverter()
     html = converter.convert(diff)
