@@ -1,3 +1,4 @@
+from diff2html.html import convert_and_write
 import subprocess
 from typing import Sequence, Union
 from ansi2html import Ansi2HTMLConverter
@@ -25,10 +26,7 @@ def diff2html(path: str, commit: str, commit2diff: str, html_path: str):
     op = ["git", 'diff', commit2diff, commit, "--color"]
     git = subprocess.run(op, capture_output=True, shell=False, cwd=path)
     diff = git.stdout.decode('utf-8')
-    converter = Ansi2HTMLConverter()
-    html = converter.convert(diff)
-    with open(html_path, "w") as f:
-        f.write(html)
+    convert_and_write(diff, html_path)
     click.echo("Diff creation end")
     
 @cli.command("log")
@@ -56,8 +54,5 @@ def log2html(path: str, commit: Union[str, None], after: Union[str, None], befor
             yield show
     
     changes = ' '.join(get_changes(g, commit, get_last_day_of_month_when_none(before), get_first_day_of_month_when_none(after), author))
-    converter = Ansi2HTMLConverter()
-    html = converter.convert(changes)
-    with open(html_path, "w") as f:
-        f.write(html)
+    convert_and_write(changes, html_path)
     click.echo("diff from log creation end")
