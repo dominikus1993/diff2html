@@ -5,7 +5,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
     
 setup(
     name = "diff2html",
-    version = "1.1.0",
+    version = "1.2.0",
     author = "Dominik Kotecki",
     author_email = "dominikus1910@gmail.com",
     description = ("Prints git diff to html"),

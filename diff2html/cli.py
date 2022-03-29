@@ -3,7 +3,7 @@ import subprocess
 from typing import Sequence, Union
 from ansi2html import Ansi2HTMLConverter
 import click
-import git
+from gitrepo import get_changes
 from git.repo.base import Repo
 from diff2html.date import get_first_day_of_month_when_none, get_last_day_of_month_when_none 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -28,7 +28,7 @@ def diff2html(path: str, commit: str, commit2diff: str, html_path: str):
     diff = git.stdout.decode('utf-8')
     convert_and_write(diff, html_path)
     click.echo("Diff creation end")
-    
+
 @cli.command("log")
 @click.option('-p', '--path', type=str, default="./", help='string')
 @click.option('-c', '--commit', type=str, default=None)
@@ -46,13 +46,7 @@ def log2html(path: str, commit: Union[str, None], after: Union[str, None], befor
     click.echo("before: {}".format(before))
     click.echo("html_path: {}".format(html_path))
     click.echo("author: {}".format(author))
-    g = git.Repo(path)
-    def get_changes(repo: Repo, cmt: Union[str, None], before: str, after: str, author: Union[str, None]) -> Sequence[str]:
-        commits = repo.iter_commits(cmt, before=before, after=after, author=author)
-        for commit in commits:
-            show = repo.git.show(commit)
-            yield show
-    
+    g = Repo(path)
     changes = ' '.join(get_changes(g, commit, get_last_day_of_month_when_none(before), get_first_day_of_month_when_none(after), author))
     convert_and_write(changes, html_path)
     click.echo("diff from log creation end")
