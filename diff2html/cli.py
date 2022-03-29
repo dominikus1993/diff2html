@@ -1,11 +1,11 @@
-from diff2html.html import convert_and_write
+from core.html import convert_and_write
 import subprocess
 from typing import Sequence, Union
 from ansi2html import Ansi2HTMLConverter
 import click
-from gitrepo import get_changes
+from core.git import get_changes
 from git.repo.base import Repo
-from diff2html.date import get_first_day_of_month_when_none, get_last_day_of_month_when_none 
+from core.date import get_first_day_of_month_when_none, get_last_day_of_month_when_none 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 @click.group(context_settings=CONTEXT_SETTINGS)
