@@ -1,4 +1,3 @@
-from core.html import convert_and_write
 import subprocess
 from typing import Union, Union
 import click
