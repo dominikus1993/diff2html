@@ -35,7 +35,6 @@
 	"extensions": [
 		"ms-python.python",
 		"ms-python.vscode-pylance",
-		"GitHub.copilot",
 		"wakatime.vscode-wakatime"
 	],
 
