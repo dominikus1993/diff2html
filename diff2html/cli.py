@@ -2,9 +2,9 @@ import subprocess
 from typing import Union, Union
 import click
 from git.repo.base import Repo
-from core.date import get_first_day_of_month_when_none, get_last_day_of_month_when_none
-from core.git import get_changes
-from core.output import get_writer 
+from diff2html.date import get_first_day_of_month_when_none, get_last_day_of_month_when_none
+from diff2html.git import get_changes
+from diff2html.output import get_writer 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 @click.group(context_settings=CONTEXT_SETTINGS)

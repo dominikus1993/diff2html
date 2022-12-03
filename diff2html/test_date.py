@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from core.date import get_first_day_of_month, get_first_day_of_month_when_none, get_last_day_of_month, get_last_day_of_month_when_none
+from diff2html.date import get_first_day_of_month, get_first_day_of_month_when_none, get_last_day_of_month, get_last_day_of_month_when_none
 import unittest
 
 class TestDate(unittest.TestCase):
