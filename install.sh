@@ -1,2 +1,2 @@
-python setup.py build
-pip install .
+python3.10 setup.py build
+python3.10 -m pip install .
